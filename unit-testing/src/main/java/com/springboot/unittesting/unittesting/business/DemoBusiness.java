@@ -1,21 +1,10 @@
 package com.springboot.unittesting.unittesting.business;
 
+import org.springframework.util.CollectionUtils;
+
 import java.util.List;
 
 public class DemoBusiness {
-
-    public Double calculateMean(List<Integer> numList) {
-        if (numList == null) {
-            return 0.0;
-        }
-        Integer sum = 0;
-        for (Integer num : numList) {
-            sum += num;
-        }
-        return (double) sum / numList.size();
-    }
-
-
 
     // For stub testing
     private IDemoDataService demoDataService;
@@ -28,6 +17,17 @@ public class DemoBusiness {
         this.demoDataService = demoDataService;
     }
 
+    public Double calculateMean(List<Integer> numList) {
+        if (CollectionUtils.isEmpty(numList)) {
+            return 0.0;
+        }
+        Integer sum = 0;
+        for (Integer num : numList) {
+            sum += num;
+        }
+        return (double) sum / numList.size();
+    }
+
     public Double calculateMeanFromDataService() {
         List<Integer> numList = demoDataService.retrieveNumberList();
         if (numList == null) {
@@ -37,6 +37,10 @@ public class DemoBusiness {
         for (Integer num : numList) {
             sum += num;
         }
-        return (double) sum / numList.size();
+
+        double mean = (double) sum / numList.size();
+
+        demoDataService.storeMean(mean);
+        return mean;
     }
 }
