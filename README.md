@@ -15,3 +15,4 @@
 - when you use mock, entire behaviour of that class is lost.
 - a mock does not retain the behaviour of the original class.
 - however spy keeps the behaviour of the original class and you can override class methods with `mockito.when`
+- Beneficial to use if you don't want to mock the dependency but if you want to figure out and what is hapenning with it.
